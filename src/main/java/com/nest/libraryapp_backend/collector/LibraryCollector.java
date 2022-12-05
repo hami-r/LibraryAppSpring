@@ -28,6 +28,6 @@ public class LibraryCollector {
 
     @PostMapping("/admin")
     public String addPage() {
-        return "Welcome to add page";
+        return "Welcome to book add page";
     }
 }
