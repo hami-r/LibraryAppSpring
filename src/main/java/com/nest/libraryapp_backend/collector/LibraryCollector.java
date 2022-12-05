@@ -44,4 +44,9 @@ public class LibraryCollector {
     public String editPage() {
         return "Welcome to book edit page";
     }
+
+    @PostMapping("/delete")
+    public String deletePage() {
+        return "Welcome to book delete page";
+    }
 }
