@@ -1,5 +1,6 @@
 package com.nest.libraryapp_backend.collector;
 
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -48,5 +49,10 @@ public class LibraryCollector {
     @PostMapping("/delete")
     public String deletePage() {
         return "Welcome to book delete page";
+    }
+
+    @GetMapping("/view")
+    public String viewPage() {
+        return "Welcome to book view page";
     }
 }
