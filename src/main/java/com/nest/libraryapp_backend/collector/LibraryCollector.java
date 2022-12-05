@@ -20,4 +20,9 @@ public class LibraryCollector {
     public String userLoginPage() {
         return "Welcome to user login page";
     }
+
+    @PostMapping("/userreg")
+    public String userRegisterPage() {
+        return "Welcome to user register page";
+    }
 }
