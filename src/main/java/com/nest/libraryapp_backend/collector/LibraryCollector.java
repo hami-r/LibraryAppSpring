@@ -25,4 +25,9 @@ public class LibraryCollector {
     public String userRegisterPage() {
         return "Welcome to user register page";
     }
+
+    @PostMapping("/admin")
+    public String addPage() {
+        return "Welcome to book add page";
+    }
 }
