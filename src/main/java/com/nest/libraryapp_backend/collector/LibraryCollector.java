@@ -15,4 +15,9 @@ public class LibraryCollector {
     public String adminLoginPage() {
         return "Welcome to admin login page";
     }
+
+    @PostMapping("/userlogin")
+    public String userLoginPage() {
+        return "Welcome to user login page";
+    }
 }
