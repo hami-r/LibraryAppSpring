@@ -10,4 +10,9 @@ public class LibraryCollector {
     public String homepage() {
         return "Welcome to my website";
     }
+
+    @PostMapping("/admin")
+    public String adminLoginPage() {
+        return "Welcome to admin login page";
+    }
 }
