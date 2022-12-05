@@ -35,4 +35,8 @@ public class LibraryCollector {
     public String issuePage() {
         return "Welcome to book issue page";
     }
+    @PostMapping("/search")
+    public String searchPage() {
+        return "Welcome to book search page";
+    }
 }
