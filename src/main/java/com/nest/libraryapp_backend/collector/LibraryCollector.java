@@ -39,4 +39,9 @@ public class LibraryCollector {
     public String searchPage() {
         return "Welcome to book search page";
     }
+
+    @PostMapping("/edit")
+    public String editPage() {
+        return "Welcome to book edit page";
+    }
 }
