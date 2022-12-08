@@ -1,11 +1,12 @@
 package com.nest.libraryapp_backend.collector;
 
 import com.nest.libraryapp_backend.dao.BookDao;
+import com.nest.libraryapp_backend.dao.IssueDao;
 import com.nest.libraryapp_backend.dao.UserDao;
 import com.nest.libraryapp_backend.model.Book;
+import com.nest.libraryapp_backend.model.Issue;
 import com.nest.libraryapp_backend.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
@@ -19,6 +20,9 @@ public class LibraryCollector {
 
     @Autowired
     private BookDao bookdao;
+
+    @Autowired
+    private IssueDao issueDao;
 
     @PostMapping("/")
     public String homepage() {
@@ -56,8 +60,11 @@ public class LibraryCollector {
 
     @CrossOrigin(origins = "*")
     @PostMapping(path = "/issue",consumes = "application/json",produces = "application/json")
-    public String issuePage() {
-        return "Welcome to book issue page";
+    public HashMap<String, String> issuePage(@RequestBody Issue issue) {
+        issueDao.save(issue);
+        HashMap<String ,String > map = new HashMap<>();
+        map.put("status","success");
+        return map;
     }
     @CrossOrigin(origins = "*")
     @PostMapping(path = "/search",consumes = "application/json",produces = "application/json")
@@ -73,12 +80,13 @@ public class LibraryCollector {
     @CrossOrigin(origins = "*")
     @PostMapping(path = "/delete",consumes = "application/json",produces = "application/json")
     public HashMap<String, String> deletePage(@RequestBody Book book) {
-        bookdao.delete(book);
+        bookdao.deleteBook(book.getBookTitle());
         HashMap<String ,String > map = new HashMap<>();
         map.put("status","success");
         return map;
     }
 
+    @CrossOrigin(origins = "*")
     @GetMapping("/view")
     public List<Book> viewPage() {
         return (List<Book>) bookdao.findAll();
