@@ -7,7 +7,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "book")
-public class Library {
+public class Book {
 
     @Id
     @GeneratedValue
@@ -23,10 +23,10 @@ public class Library {
     private int price;
     private String image;
 
-    public Library() {
+    public Book() {
     }
 
-    public Library(int id, String bookTitle, String authorName, String description, String publisher, String language, String distributor, String releasedYear, int price, String image) {
+    public Book(int id, String bookTitle, String authorName, String description, String publisher, String language, String distributor, String releasedYear, int price, String image) {
         this.id = id;
         this.bookTitle = bookTitle;
         this.authorName = authorName;
