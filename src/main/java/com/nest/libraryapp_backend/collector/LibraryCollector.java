@@ -1,11 +1,24 @@
 package com.nest.libraryapp_backend.collector;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.nest.libraryapp_backend.dao.BookDao;
+import com.nest.libraryapp_backend.dao.UserDao;
+import com.nest.libraryapp_backend.model.Book;
+import com.nest.libraryapp_backend.model.User;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.HashMap;
+import java.util.List;
 
 @RestController
 public class LibraryCollector {
+
+    @Autowired
+    private UserDao userdao;
+
+    @Autowired
+    private BookDao bookdao;
 
     @PostMapping("/")
     public String homepage() {
@@ -17,28 +30,39 @@ public class LibraryCollector {
         return "Welcome to admin login page";
     }
 
-    @PostMapping("/userlogin")
-    public String userLoginPage() {
-        return "Welcome to user login page";
+    @CrossOrigin(origins = "*")
+    @PostMapping(path = "/userlogin",consumes = "application/json",produces = "application/json")
+    public List<User> userLoginPage(@RequestBody User user) {
+        return (List<User>)userdao.verify(user.getUsername(),user.getPassword());
     }
 
-    @PostMapping("/userreg")
-    public String userRegisterPage() {
-        return "Welcome to user register page";
+    @CrossOrigin(origins = "*")
+    @PostMapping(path = "/userreg",consumes = "application/json",produces = "application/json")
+    public HashMap<String ,String > userRegisterPage(@RequestBody User user) {
+        userdao.save(user);
+        HashMap<String ,String > map = new HashMap<>();
+        map.put("status","success");
+        return map;
     }
 
-    @PostMapping("/add")
-    public String addPage() {
-        return "Welcome to book add page";
+    @CrossOrigin(origins = "*")
+    @PostMapping(path = "/add",consumes = "application/json",produces = "application/json")
+    public HashMap<String, String> addPage(@RequestBody Book book) {
+        bookdao.save(book);
+        HashMap<String ,String > map = new HashMap<>();
+        map.put("status","success");
+        return map;
     }
 
-    @PostMapping("/issue")
+    @CrossOrigin(origins = "*")
+    @PostMapping(path = "/issue",consumes = "application/json",produces = "application/json")
     public String issuePage() {
         return "Welcome to book issue page";
     }
-    @PostMapping("/search")
-    public String searchPage() {
-        return "Welcome to book search page";
+    @CrossOrigin(origins = "*")
+    @PostMapping(path = "/search",consumes = "application/json",produces = "application/json")
+    public List<Book> searchPage(@RequestBody Book book) {
+        return (List<Book>) bookdao.searchBook(book.getBookTitle());
     }
 
     @PostMapping("/edit")
@@ -46,13 +70,17 @@ public class LibraryCollector {
         return "Welcome to book edit page";
     }
 
-    @PostMapping("/delete")
-    public String deletePage() {
-        return "Welcome to book delete page";
+    @CrossOrigin(origins = "*")
+    @PostMapping(path = "/delete",consumes = "application/json",produces = "application/json")
+    public HashMap<String, String> deletePage(@RequestBody Book book) {
+        bookdao.delete(book);
+        HashMap<String ,String > map = new HashMap<>();
+        map.put("status","success");
+        return map;
     }
 
     @GetMapping("/view")
-    public String viewPage() {
-        return "Welcome to book view page";
+    public List<Book> viewPage() {
+        return (List<Book>) bookdao.findAll();
     }
 }
